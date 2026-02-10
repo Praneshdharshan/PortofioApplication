@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pranesh Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml"
+          href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+        <defs>
+            <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+                <stop offset='0%' stop-color='%237c6cff' />
+                <stop offset='100%' stop-color='%233b2cff' />
+            </linearGradient>
+        </defs>
+        <rect width='100' height='100' rx='20' fill='url(%23g)' />
+        <circle cx='50' cy='50' r='12' fill='white' />
+    </svg>">
+    
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <div id="stars"></div>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="logo-circle">PD</div>
+            </a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 900,
+            once: false,
+            mirror: true,
+            easing: 'ease-out-cubic'
+        });
+
+       let scrolling;
+
+        window.addEventListener('scroll', () => {
+            document.body.classList.add('scrolling');
+
+            clearTimeout(scrolling);
+            scrolling = setTimeout(() => {
+                document.body.classList.remove('scrolling');
+            }, 150);
+        });
+    </script>
+
+</body>
+</html>
