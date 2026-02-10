@@ -19,10 +19,14 @@ namespace PortofioApplication.Controllers
         {
             HttpClient client = new HttpClient();
 
-            var profileRes = await client.GetStringAsync("https://localhost:3000/api/portfolioapi/profile");
-            var skillsRes = await client.GetStringAsync("https://localhost:3000/api/portfolioapi/skills");
-            var expRes = await client.GetStringAsync("https://localhost:3000/api/portfolioapi/experience");
-            var projRes = await client.GetStringAsync("https://localhost:3000/api/portfolioapi/projects");
+            var profileRes = await client.GetStringAsync($"{Request.Scheme}://{Request.Host}/api/portfolioapi/profile");
+
+            var skillsRes = await client.GetStringAsync($"{Request.Scheme}://{Request.Host}/api/portfolioapi/skills");
+
+            var expRes = await client.GetStringAsync($"{Request.Scheme}://{Request.Host}/api/portfolioapi/experience");
+
+            var projRes = await client.GetStringAsync($"{Request.Scheme}://{Request.Host}/api/portfolioapi/projects");
+
 
             var vm = new PortfolioViewModel
             {
@@ -42,9 +46,10 @@ namespace PortofioApplication.Controllers
 
             // Save to DB via API
             await client.PostAsJsonAsync(
-                "https://localhost:3000/api/portfolioapi/contact",
-                msg
-            );
+    $"{Request.Scheme}://{Request.Host}/api/portfolioapi/contact",
+    msg
+);
+
 
             // MAIL TO YOU
             _email.Send(
