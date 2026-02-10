@@ -1,27 +1,29 @@
 using PortofioApplication.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// IMPORTANT: Bind to Render PORT
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
+
+// Services
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddControllers();
 
-
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
+// Pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
 }
 
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -33,5 +35,4 @@ app.MapControllerRoute(
 
 app.MapControllers();
 
-
-app.Run("http://0.0.0.0:8080");
+app.Run();
