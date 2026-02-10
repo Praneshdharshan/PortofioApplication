@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="protfolio.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1006"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="Projects" custom_title="0" dock_id="1" table="4,8:mainProjects"/><dock_state state="000000ff00000000fd00000001000000020000043b000002aefc0100000001fb000000160064006f0063006b00420072006f007700730065003101000000000000043b0000011800ffffff000002580000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="ContactMessages" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="29"/><column index="2" value="41"/><column index="3" value="39"/><column index="4" value="56"/><column index="5" value="64"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Experience" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="29"/><column index="2" value="195"/><column index="3" value="202"/><column index="4" value="70"/><column index="5" value="70"/><column index="6" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Profile" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="29"/><column index="2" value="148"/><column index="3" value="300"/><column index="4" value="300"/><column index="5" value="163"/><column index="6" value="85"/><column index="7" value="300"/><column index="8" value="273"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Projects" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="29"/><column index="2" value="300"/><column index="3" value="300"/><column index="4" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">DROP TABLE IF EXISTS Profile;
+DROP TABLE IF EXISTS Skills;
+DROP TABLE IF EXISTS Experience;
+DROP TABLE IF EXISTS Projects;
+DROP TABLE IF EXISTS ContactMessages;
+
+CREATE TABLE Profile(
+ Id INTEGER PRIMARY KEY AUTOINCREMENT,
+ Name TEXT,
+ Title TEXT,
+ Summary TEXT,
+ Email TEXT,
+ Phone TEXT,
+ LinkedIn TEXT,
+ GitHub TEXT
+);
+
+CREATE TABLE Skills(
+ Id INTEGER PRIMARY KEY AUTOINCREMENT,
+ SkillName TEXT,
+ SkillLevel TEXT
+);
+
+CREATE TABLE Experience(
+ Id INTEGER PRIMARY KEY AUTOINCREMENT,
+ Company TEXT,
+ Role TEXT,
+ StartYear TEXT,
+ EndYear TEXT,
+ Description TEXT
+);
+
+CREATE TABLE Projects(
+ Id INTEGER PRIMARY KEY AUTOINCREMENT,
+ Title TEXT,
+ Description TEXT,
+ TechStack TEXT
+);
+
+CREATE TABLE ContactMessages(
+ Id INTEGER PRIMARY KEY AUTOINCREMENT,
+ Name TEXT,
+ Email TEXT,
+ Message TEXT,
+ CreatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+/* PROFILE */
+
+INSERT INTO Profile
+(Name, Title, Summary, Email, Phone, LinkedIn, GitHub)
+VALUES
+(
+'Pranesh Dharshan M',
+'Junior Software Associate | ASP.NET MVC &amp; Full Stack Developer',
+'Software Engineer with 1+ year of experience building backend and full-stack web applications using ASP.NET MVC, Node.js, REST APIs, and SQL Server. Strong in building internal systems, API integration, and improving performance in Agile environments.',
+'vilasmanig@gmail.com',
+'9003243440',
+'https://linkedin.com/in/praneshdharshan2002',
+'https://github.com/Praneshdharshan'
+);
+
+/* SKILLS */
+
+INSERT INTO Skills (SkillName, SkillLevel) VALUES
+('ASP.NET MVC','Advanced'),
+('Node.js','Intermediate'),
+('Express.js','Intermediate'),
+('REST APIs','Advanced'),
+('HTML5','Advanced'),
+('CSS3','Advanced'),
+('Bootstrap','Advanced'),
+('JavaScript','Intermediate'),
+('SQL Server','Advanced'),
+('MySQL','Intermediate'),
+('FileMaker Server','Intermediate'),
+('AWS EC2','Beginner'),
+('AWS S3','Beginner'),
+('GitHub','Advanced'),
+('Postman','Advanced'),
+('Power BI','Intermediate');
+
+/* EXPERIENCE */
+
+INSERT INTO Experience
+(Company, Role, StartYear, EndYear, Description)
+VALUES
+(
+'eNoah iSolution, Chennai',
+'Junior Software Associate',
+'Apr 2024',
+'Feb 2026',
+'Developed internal web applications using ASP.NET MVC, Node.js and SQL Server. Built REST APIs, worked with FileMaker Server, supported production releases, bug fixes, and Agile development.'
+);
+
+/* PROJECTS */
+
+INSERT INTO Projects (Title, Description, TechStack) VALUES
+(
+'Central Line Project',
+'Developed backend APIs using Node.js and Express.js to centralize operational data. Integrated FileMaker Data API and implemented server-side validation.',
+'Node.js, Express.js, FileMaker, REST APIs'
+),
+(
+'eConnect Internal Employee Portal',
+'Built employee portal using ASP.NET MVC and SQL Server with role-based access control and secure workflows.',
+'ASP.NET MVC, SQL Server, REST APIs'
+),
+(
+'Internal Analytics Dashboard',
+'Developed dashboards and embedded Power BI reports. Integrated data from Airtable, Smartsheet, and SQL Server.',
+'Power BI, SQL Server, ASP.NET MVC'
+),
+(
+'Cloud-Based Blood Bank Management System',
+'Designed cloud system for blood inventory and donor records. Deployed using AWS EC2 and S3. Won Best Research Paper Award.',
+'AWS EC2, S3, ASP.NET MVC, SQL Server'
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

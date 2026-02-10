@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using PortofioApplication.Models;
 using PortofioApplication.Services;
 
@@ -16,9 +16,9 @@ namespace PortofioApplication.Controllers
             _config = config;
         }
 
-        private SqlConnection GetConnection()
+        private SqliteConnection GetConnection()
         {
-            return new SqlConnection(_config.GetConnectionString("DB"));
+            return new SqliteConnection("Data Source=portfolio.db");
         }
 
         // ================= PROFILE =================
@@ -26,16 +26,16 @@ namespace PortofioApplication.Controllers
         public IActionResult GetProfile()
         {
             List<Profile> list = new();
-            using SqlConnection con = GetConnection();
-            SqlCommand cmd = new("SELECT * FROM Profile", con);
+            using SqliteConnection con = GetConnection();
+            SqliteCommand cmd = new("SELECT * FROM Profile", con);
             con.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
+            SqliteDataReader dr = cmd.ExecuteReader();
 
             while (dr.Read())
             {
                 list.Add(new Profile
                 {
-                    Id = (int)dr["Id"],
+                    Id = Convert.ToInt32(dr["Id"]),
                     Name = dr["Name"].ToString(),
                     Title = dr["Title"].ToString(),
                     Summary = dr["Summary"].ToString(),
@@ -54,16 +54,16 @@ namespace PortofioApplication.Controllers
         public IActionResult GetSkills()
         {
             List<Skill> list = new();
-            using SqlConnection con = GetConnection();
-            SqlCommand cmd = new("SELECT * FROM Skills", con);
+            using SqliteConnection con = GetConnection();
+            SqliteCommand cmd = new("SELECT * FROM Skills", con);
             con.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
+            SqliteDataReader dr = cmd.ExecuteReader();
 
             while (dr.Read())
             {
                 list.Add(new Skill
                 {
-                    Id = (int)dr["Id"],
+                    Id = Convert.ToInt32(dr["Id"]),
                     SkillName = dr["SkillName"].ToString(),
                     SkillLevel = dr["SkillLevel"].ToString()
                 });
@@ -77,10 +77,10 @@ namespace PortofioApplication.Controllers
         public IActionResult GetExperience()
         {
             List<Experience> list = new();
-            using SqlConnection con = GetConnection();
-            SqlCommand cmd = new("SELECT * FROM Experience", con);
+            using SqliteConnection con = GetConnection();
+            SqliteCommand cmd = new("SELECT * FROM Experience", con);
             con.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
+            SqliteDataReader dr = cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -102,10 +102,10 @@ namespace PortofioApplication.Controllers
         public IActionResult GetProjects()
         {
             List<Project> list = new();
-            using SqlConnection con = GetConnection();
-            SqlCommand cmd = new("SELECT * FROM Projects", con);
+            using SqliteConnection con = GetConnection();
+            SqliteCommand cmd = new("SELECT * FROM Projects", con);
             con.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
+            SqliteDataReader dr = cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -119,6 +119,25 @@ namespace PortofioApplication.Controllers
 
             return Ok(list);
         }
+
+        [HttpPost("contact")]
+        public IActionResult SaveContact(ContactMessage msg)
+        {
+            using var con = GetConnection();
+            con.Open();
+
+            var cmd = new SqliteCommand(
+                "INSERT INTO ContactMessages(Name,Email,Message) VALUES(@n,@e,@m)", con);
+
+            cmd.Parameters.AddWithValue("@n", msg.Name);
+            cmd.Parameters.AddWithValue("@e", msg.Email);
+            cmd.Parameters.AddWithValue("@m", msg.Message);
+
+            cmd.ExecuteNonQuery();
+
+            return Ok();
+        }
+
 
     }
 }
